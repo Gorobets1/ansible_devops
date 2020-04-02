@@ -1,0 +1,27 @@
+- hosts: all
+  become: yes
+  tasks: 
+   
+    - name: add user ansible 
+      user: 
+        name: ansible 
+ 
+    - name: create directory for ssh 
+      file:
+        path: /home/ansible/.ssh
+        state: directory
+        mode: 0700
+        owner: ansible 
+  
+    - name: create files for ssh keys and authorized keys 
+      copy:
+        src: /home/ansible/.ssh/{{item}} 
+        dest: /home/ansible/.ssh/{{item}}
+        owner: ansible
+        mode: 0700
+      with_items:  
+        - id_rsa
+        - id_rsa.pub
+        - authorized_keys
+       
+
