@@ -13,15 +13,66 @@
         mode: 0700
         owner: ansible 
   
-    - name: create files for ssh keys and authorized keys 
+    - name: copy  authorized keys to all hosts 
       copy:
         src: /home/ansible/.ssh/{{item}} 
         dest: /home/ansible/.ssh/{{item}}
         owner: ansible
         mode: 0700
       with_items:  
-        - id_rsa
-        - id_rsa.pub
-        - authorized_keys
+       - authorized_keys
        
+   
+- hosts: loadbalancer 
+  become: yes
+  tasks:
 
+    - name: install epel-release 
+      package: 
+        name: epel-release
+        state: present 
+
+    - name: install ngnix at loadbalancer 
+      package:
+        name: nginx
+        state: present
+
+    - name: make sure nginx is started and enabled 
+      service: 
+        name: nginx 
+        state: started 
+        enabled: yes
+
+
+- hosts: webserver 
+  become: yes 
+  tasks: 
+
+    - name: install tomcat on webservers  
+      yum: 
+        name: "{{item}}" 
+        state: present 
+        update_cache: yes
+      with_items: 
+       - tomcat   
+       - tomcat-webapps
+       - tomcat-admin-webapps
+       - tomcat-docs-webapp
+
+        
+    - name: start and enable tomcat 
+      service: 
+        name: tomcat 
+        state: started 
+        enabled: yes 
+
+   
+
+
+
+      
+    
+            
+
+
+ 
