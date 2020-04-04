@@ -1,0 +1,18 @@
+- hosts: loadbalancer
+  become: yes 
+  tasks: 
+
+    -  name: copy conf to loadbalancer 
+       copy: 
+         src: /home/ansible/ansible_devops/java_web_app/templates/loadbalancer/app.conf
+         dest: /etc/nginx/conf.d/app.conf
+       notify: nginx restart 
+   
+  handlers: 
+     
+    - name: nginx restart 
+      become: yes
+      service: 
+        name: nginx 
+        state: restarted 
+       

@@ -28,14 +28,16 @@
   tasks:
 
     - name: install epel-release 
-      package: 
+      yum: 
         name: epel-release
         state: present 
+        update_cache: yes
 
     - name: install ngnix at loadbalancer 
-      package:
+      yum:
         name: nginx
         state: present
+        update_cache: yes
 
     - name: make sure nginx is started and enabled 
       service: 
