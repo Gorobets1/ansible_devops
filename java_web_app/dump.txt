@@ -1,0 +1,11 @@
+== Info: About to connect() to 127.0.0.1 port 80 (#0)
+== Info:   Trying 127.0.0.1...
+== Info: Connected to 127.0.0.1 (127.0.0.1) port 80 (#0)
+=> Send header, 73 bytes (0x49)
+0000: GET / HTTP/1.1
+0010: User-Agent: curl/7.29.0
+0029: Host: 127.0.0.1
+003a: Accept: */*
+0047: 
+== Info: Recv failure: Connection reset by peer
+== Info: Closing connection 0

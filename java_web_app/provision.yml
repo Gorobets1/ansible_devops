@@ -28,16 +28,14 @@
   tasks:
 
     - name: install epel-release 
-      yum: 
+      dnf: 
         name: epel-release
         state: present 
-        update_cache: yes
 
     - name: install ngnix at loadbalancer 
-      yum:
+      dnf:
         name: nginx
         state: present
-        update_cache: yes
 
     - name: make sure nginx is started and enabled 
       service: 
@@ -50,22 +48,86 @@
   become: yes 
   tasks: 
 
-    - name: install tomcat on webservers  
-      yum: 
+    - name: install java   
+      dnf: 
         name: "{{item}}" 
         state: present 
-        update_cache: yes
       with_items: 
-       - tomcat   
-       - tomcat-webapps
-       - tomcat-admin-webapps
-       - tomcat-docs-webapp
+       - java-11-openjdk-devel 
 
+    - name: create group tomcat 
+      group: 
+        name: tomcat 
+        state: present 
         
+    - name: add user tomcat 
+      user: 
+        name: tomcat 
+        shell: /bin/false
+        home: /opt/tomcat
+        group: tomcat 
+        
+    - name: download tomcat 
+      get_url: 
+        url: https://www-eu.apache.org/dist/tomcat/tomcat-9/v9.0.34/bin/apache-tomcat-9.0.34.tar.gz 
+        dest: /tmp/apache-tomcat-9.0.34.tar.gz
+
+    - name: unarchive the downloaded file 
+      unarchive: 
+        src: /tmp/apache-tomcat-9.0.34.tar.gz
+        dest: /opt/tomcat/
+        owner: tomcat 
+        group: tomcat
+
+    - name: create symlink 
+      file: 
+        src: /opt/tomcat/apache-tomcat-9.0.34 
+        dest: /opt/tomcat/latest
+        owner: tomcat
+        group: tomcat 
+        state: link
+  
+    - name: set attributes of tomcat directory recursively 
+      file: 
+        path: /opt/tomcat
+        state: directory 
+        owner: tomcat
+        group: tomcat
+        recurse: yes 
+
+    - name: set attributes of shell scripts recursively
+      file:
+        path: /opt/tomcat/latest/bin
+        state: directory
+        owner: tomcat
+        group: tomcat
+        mode: 0755
+        recurse: yes
+
+    - name: create unit file of the tomcat service 
+      copy: 
+        src: tomcat.service
+        dest: /etc/systemd/system/tomcat.service
+
+    - name: restart systemd 
+      systemd: 
+        daemon_reload: yes
+    
     - name: start and enable tomcat 
       service: 
         name: tomcat 
         state: started 
+        
+       
+    - name: set tomcat access 
+      copy: 
+        src: context.xml 
+        dest: /opt/tomcat/latest/webapps/manager/META-INF/context.xml
+        
+    - name: start and enable tomcat 
+      service: 
+        name: tomcat 
+        state: restarted 
         enabled: yes 
 
    

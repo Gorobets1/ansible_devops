@@ -3,8 +3,8 @@
   tasks: 
 
     -  name: copy conf to loadbalancer 
-       copy: 
-         src: /home/ansible/ansible_devops/java_web_app/templates/loadbalancer/app.conf
+       template: 
+         src: app.conf.j2
          dest: /etc/nginx/conf.d/app.conf
        notify: nginx restart 
    
