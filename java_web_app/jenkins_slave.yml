@@ -19,4 +19,10 @@
        src: /home/ansible/files/authorized_keys_jenkins
        dest: /home/jenkins/.ssh/authorized_keys 
    
-
+   - name: install packages  
+     package: 
+       name: "{{ item }}"
+       state: present 
+     loop: 
+      - java-1.8.0-openjdk
+      - git

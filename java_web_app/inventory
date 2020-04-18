@@ -1,14 +1,14 @@
 [webserver] 
-app1 ansible_host=172.17.0.2
-app2 ansible_host=172.17.0.3
+app1 ansible_host=10.0.0.2
+app2 ansible_host=10.0.0.3
 
 [loadbalancer] 
-lb ansible_host=172.17.0.4
+lb ansible_host=10.0.0.4
 
 [database]
-db ansible_host=172.17.0.5
+db ansible_host=10.0.0.5
 
 [slaves] 
-jenkins_slave1 ansible_host=172.17.0.6
-jenkins_slave2 ansible_host=172.17.0.7
+js1 ansible_host=10.0.0.6
+js2 ansible_host=10.0.0.7
 

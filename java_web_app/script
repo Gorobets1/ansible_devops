@@ -1,0 +1,4 @@
+for i in $(cat containers)
+do 
+sudo docker exec -it $1 ip addr show | grep -oG 172.......
+done 
