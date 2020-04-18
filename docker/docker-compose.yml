@@ -1,0 +1,76 @@
+version: "3.3" 
+
+services: 
+
+  app1:
+    container_name: app1 
+    image: 76c
+    hostname: app1 
+    privileged: true 
+    ports: 
+     - "8081:8080"
+    restart: unless-stopped 
+    networks:
+      my_net: 
+        ipv4_address: 10.0.0.2 
+
+  app2:
+    container_name: app2
+    image: 76c
+    hostname: app2
+    privileged: true
+    ports: 
+     - "8082:8080"
+    restart: unless-stopped
+    networks: 
+      my_net:
+        ipv4_address: 10.0.0.3
+
+  lb:
+    container_name: lb
+    image: 76c
+    hostname: lb
+    privileged: true
+    ports: 
+     - "8083:8888"
+    restart: unless-stopped
+    networks: 
+      my_net:
+        ipv4_address: 10.0.0.4      
+
+  db:
+    container_name: db
+    image: 76c
+    hostname: db
+    privileged: true
+    restart: unless-stopped
+    networks: 
+      my_net:
+        ipv4_address: 10.0.0.5
+
+  js1:
+    container_name: js1
+    image: 76c
+    hostname: js1
+    privileged: true
+    restart: unless-stopped
+    networks: 
+      my_net:  
+        ipv4_address: 10.0.0.6
+
+  js2: 
+    container_name: js2
+    image: 76c
+    hostname: app1
+    privileged: true
+    restart: unless-stopped
+    networks: 
+      my_net: 
+        ipv4_address: 10.0.0.7
+
+networks:
+  my_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.0.0.1/24"        
