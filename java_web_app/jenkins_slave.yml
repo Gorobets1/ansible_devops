@@ -26,3 +26,11 @@
      loop: 
       - java-1.8.0-openjdk
       - git
+  
+   - name: add jenkins to sudoers
+     lineinfile: 
+       path: /etc/sudoers
+       regexp: '^jenkins'
+       line: jenkins ALL=(ALL) NOPASSWD: ALL
+    
+ 
