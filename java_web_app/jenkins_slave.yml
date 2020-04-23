@@ -31,6 +31,6 @@
      lineinfile: 
        path: /etc/sudoers
        regexp: '^jenkins'
-       line: jenkins ALL=(ALL) NOPASSWD: ALL
+       line: "jenkins ALL=(ALL) NOPASSWD: ALL"
     
  

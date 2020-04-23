@@ -1,0 +1,15 @@
+---
+- package: 
+    name: "{{ item }}"
+    state: present 
+  loop: 
+    - python3-PyMySQL
+    - mysql-server 
+  notify: create db
+
+- service: 
+    name: mysqld
+    state: started 
+    enabled: yes  
+    
+  

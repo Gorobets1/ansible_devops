@@ -1,0 +1,4 @@
+- hosts: app2
+  become: yes 
+  roles: 
+   - database 

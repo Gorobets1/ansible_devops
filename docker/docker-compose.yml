@@ -61,7 +61,7 @@ services:
   js2: 
     container_name: js2
     image: 76c
-    hostname: app1
+    hostname: js2
     privileged: true
     restart: unless-stopped
     networks: 

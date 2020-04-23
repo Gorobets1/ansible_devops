@@ -1,2 +1,16 @@
 ---
 # handlers file for database
+- name: copy the file with the sql script
+  copy: 
+    src: dbcreate.sql 
+    dest: /tmp
+  listen: create db
+
+- name: Restore database
+  mysql_db:
+    name: my_db
+    state: import
+    target: /tmp/dbcreate.sql
+  listen: create db
+  
+- 
