@@ -4,7 +4,7 @@
   dnf:
     name: "{{item}}"
     state: present
-  with_items:
+  loop:
     - java-11-openjdk-devel
 
 - name: create group tomcat
@@ -56,7 +56,7 @@
     mode: 0755
     recurse: yes
 
-- name: create unit file of the tomcat service
+- name: create unit file for the tomcat service
   copy:
     src: tomcat.service
     dest: /etc/systemd/system/tomcat.service

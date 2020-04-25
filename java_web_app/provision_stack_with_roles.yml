@@ -1,0 +1,20 @@
+---
+- hosts: slaves 
+  become: yes 
+  roles: 
+   - slaves 
+
+- hosts: webserver 
+  become: yes 
+  roles: 
+   - webserver 
+
+- hosts: loadbalancer 
+  become: yes 
+  roles: 
+   - loadbalancer
+ 
+- hosts: database
+  become: yes 
+  roles: 
+   - database 
