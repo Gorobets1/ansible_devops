@@ -16,7 +16,7 @@
     enabled: yes
 
 - name: copy conf to loadbalancer
-  template:
-    src: app.conf.j2
-    dest: /etc/nginx/conf.d/app.conf
+  copy:
+    src: nginx.conf 
+    dest: /etc/nginx/nginx.conf
   notify: nginx restart

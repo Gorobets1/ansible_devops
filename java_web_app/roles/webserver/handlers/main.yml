@@ -1,12 +1,6 @@
 ---
-- name: restart tomcat 
-  service: 
-    name: tomcat 
-    state: restarted 
-  listen: deploy war
-
 - name: back up ROOT
-  shell: mv /opt/tomcat/latest/webapps/ROOT /opt/tomcat/latest/webapps/ROOT_backup
+  shell: cp -r /opt/tomcat/latest/webapps/ROOT /opt/tomcat/latest/webapps/ROOT_backup&&rm -rf /opt/tomcat/latest/webapps/ROOT
   listen: deploy war
   register: deploywar
 
@@ -15,4 +9,11 @@
     src: Bookstore0.0.8.war
     dest: /opt/tomcat/latest/webapps/ROOT.war
   listen: deploy war
+
+- name: restart tomcat 
+  service: 
+    name: tomcat 
+    state: restarted 
+  listen: deploy war
+
 

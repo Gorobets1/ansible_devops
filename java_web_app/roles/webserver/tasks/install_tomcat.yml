@@ -69,18 +69,19 @@
 - name: restart systemd
   systemd:
     daemon_reload: yes
+  when: tomcat_version.changed
  
 - name: start and enable tomcat
   service:
     name: tomcat
     state: started
-
+  
 
 - name: set tomcat access
   copy:
     src: context.xml
     dest: /opt/tomcat/latest/webapps/manager/META-INF/context.xml
-  notify: deploy war
+  when: tomcat_version.changed
 
 
 - name: start and enable tomcat
@@ -88,8 +89,5 @@
     name: tomcat
     state: restarted
     enabled: yes
-
-- name: test
-  shell: echo "test notify restart tomcat" 
-  notify: restart tomcat   
+  when: tomcat_version.changed
 
