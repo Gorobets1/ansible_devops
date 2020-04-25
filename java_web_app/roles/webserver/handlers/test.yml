@@ -1,0 +1,14 @@
+- hosts: webserver
+  become: yes 
+  tasks: 
+   - name: test debug 
+     shell: touch ~/test
+   - name: change owner 
+     file: 
+       path: ~/test 
+       owner: ansible 
+     register: owner 
+   - name: show owner 
+     debug: 
+       var: owner  
+

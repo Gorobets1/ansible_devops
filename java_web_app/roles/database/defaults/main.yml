@@ -1,2 +1,4 @@
 ---
 # defaults file for database
+database_user: dbuser 
+database_password: dbpassword

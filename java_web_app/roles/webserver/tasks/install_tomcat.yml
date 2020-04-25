@@ -38,6 +38,8 @@
     owner: tomcat
     group: tomcat
     state: link
+  register: tomcat_version
+  notify: deploy war
 
 - name: set attributes of tomcat directory recursively
   file:
@@ -46,6 +48,7 @@
     owner: tomcat
     group: tomcat
     recurse: yes
+  when: tomcat_version.changed 
 
 - name: set attributes of shell scripts recursively
   file:
@@ -55,16 +58,18 @@
     group: tomcat
     mode: 0755
     recurse: yes
+  when: tomcat_version.changed
 
 - name: create unit file for the tomcat service
   copy:
     src: tomcat.service
     dest: /etc/systemd/system/tomcat.service
+  when: tomcat_version.changed
 
 - name: restart systemd
   systemd:
     daemon_reload: yes
-
+ 
 - name: start and enable tomcat
   service:
     name: tomcat
@@ -75,9 +80,16 @@
   copy:
     src: context.xml
     dest: /opt/tomcat/latest/webapps/manager/META-INF/context.xml
+  notify: deploy war
+
 
 - name: start and enable tomcat
   service:
     name: tomcat
     state: restarted
     enabled: yes
+
+- name: test
+  shell: echo "test notify restart tomcat" 
+  notify: restart tomcat   
+

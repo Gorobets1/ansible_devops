@@ -1,11 +1,12 @@
-- name: Create database user with name 'dbadmin' and password 'dbpassword' with all database privileges
+- name: Create database user with all database privileges
   mysql_user:
-    name: dbadmin
-    password: dbpassword
+    name: "{{ database_user }}"
+    password: "{{ database_password }}"
     priv: '*.*:ALL'
     state: present
     host: '%'
-- mysql_db:
+- name: create database Bookstore 
+  mysql_db:
     name: Bookstore
     state: present
   notify: add table

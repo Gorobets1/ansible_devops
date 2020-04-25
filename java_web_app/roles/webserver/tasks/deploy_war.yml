@@ -1,0 +1,6 @@
+---
+- name: copy war file to tomcat webapps 
+  copy: 
+    src: Bookstore0.0.8.war
+    dest: /opt/tomcat/latest/webapps/ROOT.war
+  notify: restart tomcat 
