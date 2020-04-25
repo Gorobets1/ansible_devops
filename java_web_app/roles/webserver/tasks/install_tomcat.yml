@@ -23,6 +23,7 @@
   get_url:
     url: https://www-eu.apache.org/dist/tomcat/tomcat-9/v9.0.34/bin/apache-tomcat-9.0.34.tar.gz
     dest: /tmp/apache-tomcat-9.0.34.tar.gz
+  register: tarball
 
 - name: unarchive the downloaded file
   unarchive:
@@ -30,6 +31,7 @@
     dest: /opt/tomcat/
     owner: tomcat
     group: tomcat
+  when: tarball.changed 
 
 - name: create symlink
   file:
@@ -71,11 +73,6 @@
     daemon_reload: yes
   when: tomcat_version.changed
  
-- name: start and enable tomcat
-  service:
-    name: tomcat
-    state: started
-  
 
 - name: set tomcat access
   copy:

@@ -1,0 +1,1 @@
+#given user ansible is present on the control node, you can paste its id_rsa private key in this file to build the docker image

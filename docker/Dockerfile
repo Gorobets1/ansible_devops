@@ -35,11 +35,11 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 # Setup ansible user
 RUN useradd ansible -s /bin/bash
 RUN mkdir -p /home/ansible/.ssh/
-RUN chmod 0700 /home/ansible/.ssh/
 COPY ansible /home/ansible/.ssh/id_rsa
 COPY ansible.pub /home/ansible/.ssh/id_rsa.pub
 COPY ansible.pub /home/ansible/.ssh/authorized_keys
 RUN chown -R ansible:ansible /home/ansible/
+RUN chmod 0700 /home/ansible/.ssh/
 RUN echo "ansible ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 
