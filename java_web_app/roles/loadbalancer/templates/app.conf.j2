@@ -1,0 +1,12 @@
+upstream appset {
+ server {{ hostvars['app1']['ansible_host'] }}:8080;
+ server {{ hostvars['app2']['ansible_host'] }}:8080;
+}
+
+server {
+ listen 8888;
+
+ location / {
+  proxy_pass http://appset;
+ }
+}
