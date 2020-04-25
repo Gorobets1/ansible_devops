@@ -1,4 +1,4 @@
-- hosts: app2
+- hosts: js1
   become: yes 
   roles: 
    - database 

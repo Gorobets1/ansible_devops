@@ -1,4 +1,6 @@
+---
 - hosts: slaves
   become: yes
-  roles: 
-   - slaves
+  roles:
+   - database
+

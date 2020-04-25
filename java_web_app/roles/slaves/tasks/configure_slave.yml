@@ -14,7 +14,7 @@
    
 - name: add authorized keys for ssh connection  
   copy: 
-    src: /home/ansible/files/authorized_keys_jenkins
+    src: authorized_keys_jenkins
     dest: /home/jenkins/.ssh/authorized_keys 
    
 - name: install packages  

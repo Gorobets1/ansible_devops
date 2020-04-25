@@ -1,5 +1,4 @@
 ---
-- import_tasks:
-   - install_mysql.yml
-   - adduser.yml
+- import_tasks: install_mysql.yml
+- import_tasks:  adduser.yml
 
