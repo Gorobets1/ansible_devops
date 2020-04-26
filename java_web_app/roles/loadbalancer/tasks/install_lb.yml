@@ -1,0 +1,22 @@
+---
+- name: install epel-release
+  dnf:
+    name: epel-release
+    state: present
+
+- name: install ngnix at loadbalancer
+  dnf:
+    name: nginx
+    state: present
+
+- name: make sure nginx is started and enabled
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: copy conf to loadbalancer
+  template:
+    src: app.conf.j2
+    dest: /etc/nginx/conf.d/app.conf
+  notify: nginx restart
