@@ -4,4 +4,9 @@
     password: dbpassword
     priv: '*.*:ALL'
     state: present
+    host: "%"
+  mysql_db:
+    name: Bookstore
+    state: present
+  notify: add table
 
