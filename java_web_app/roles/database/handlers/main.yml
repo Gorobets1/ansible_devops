@@ -7,4 +7,5 @@
   listen: add table
 - name: create table
   shell: mysql < /tmp/dbcreate.sql
+  listen: add table
 
