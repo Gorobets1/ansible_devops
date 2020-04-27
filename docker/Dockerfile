@@ -22,7 +22,7 @@ RUN alternatives --set python /usr/bin/python3
 
 
 RUN mkdir /var/run/sshd
-RUN echo 'root:Fifa2013' | chpasswd
+RUN echo 'root:password' | chpasswd
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN /usr/bin/ssh-keygen -A
 # SSH login fix. Otherwise user is kicked off after login

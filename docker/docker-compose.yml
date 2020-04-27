@@ -4,7 +4,7 @@ services:
 
   app1:
     container_name: app1 
-    image: 76c
+    build: .
     hostname: app1 
     privileged: true 
     ports: 
@@ -16,7 +16,7 @@ services:
 
   app2:
     container_name: app2
-    image: 76c
+    build: .
     hostname: app2
     privileged: true
     ports: 
@@ -28,7 +28,7 @@ services:
 
   lb:
     container_name: lb
-    image: 76c
+    build: .
     hostname: lb
     privileged: true
     ports: 
@@ -40,7 +40,7 @@ services:
 
   db:
     container_name: db
-    image: 76c
+    build: .
     hostname: db
     privileged: true
     restart: unless-stopped
@@ -50,7 +50,7 @@ services:
 
   js1:
     container_name: js1
-    image: 76c
+    build: .
     hostname: js1
     privileged: true
     restart: unless-stopped
@@ -60,7 +60,7 @@ services:
 
   js2: 
     container_name: js2
-    image: 76c
+    build: .
     hostname: js2
     privileged: true
     restart: unless-stopped

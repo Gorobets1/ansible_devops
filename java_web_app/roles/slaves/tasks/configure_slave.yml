@@ -1,0 +1,34 @@
+---
+- name: add user jenkins 
+  user: 
+    name: jenkins 
+    shell: /bin/bash 
+
+- name: create .ssh folder 
+  file: 
+    path: /home/jenkins/.ssh 
+    state: directory 
+    mode: 0700
+    owner: jenkins 
+    recurse: yes
+   
+- name: add authorized keys for ssh connection  
+  copy: 
+    src: /home/ansible/files/authorized_keys_jenkins
+    dest: /home/jenkins/.ssh/authorized_keys 
+   
+- name: install packages  
+  package: 
+    name: "{{ item }}"
+    state: present 
+  loop: 
+   - java-1.8.0-openjdk
+   - git
+  
+- name: add jenkins to sudoers
+  lineinfile: 
+    path: /etc/sudoers
+    regexp: '^jenkins'
+    line: "jenkins ALL=(ALL) NOPASSWD: ALL"
+    
+ 

@@ -1,2 +1,3 @@
 ---
 # tasks file for slaves
+- import_tasks: configure_slave.yml
